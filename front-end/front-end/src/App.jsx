@@ -3,9 +3,11 @@ import Navbar from './components/Navbar';
 
 function App() {
   return (
-    <>
+     <>
       <Navbar />
-      <AppRoutes />
+      <main className="p-4">
+        <AppRoutes />
+      </main>
     </>
   );
 }

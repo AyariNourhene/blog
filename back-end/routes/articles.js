@@ -10,10 +10,10 @@ router.get('/', async (req, res) => {
   res.json(articles);
 });
 
-// [POST] create article
-router.post('/', async (req, res) => {
-  const article = new Article(req.body);
-  await article.save();
+// [POST] create article (admin only )
+router.post('/', protect, authorize('admin'), async (req, res) => {
+  const { title, content } = req.body;
+  const article = await Article.create({ title, content });
   res.status(201).json(article);
 });
 
@@ -23,16 +23,16 @@ router.get('/:id', async (req, res) => {
   res.json(article);
 });
 
-// [PUT] update article
-router.put('/:id', async (req, res) => {
+// [PUT] update article (admin only)
+router.put('/:id',protect,authorize('admin') ,async (req, res) => {
   const updated = await Article.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(updated);
 });
 
-// [DELETE] delete article
-router.delete('/:id', async (req, res) => {
+// [DELETE] delete article (admin only)
+router.delete('/:id', protect, authorize('admin'), async (req, res) => {
   await Article.findByIdAndDelete(req.params.id);
-  res.json({ message: "Deleted successfully" });
+  res.json({ message: 'Article deleted' });
 });
 
 // [POST] add comment
