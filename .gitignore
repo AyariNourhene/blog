@@ -4,7 +4,7 @@ frontend/node_modules/
 
 # Env files
 back-end/.env
-front-end/.env
+front-end/front-end/.env
 
 # Build files
 frontend/dist/
